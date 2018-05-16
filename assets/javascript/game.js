@@ -136,7 +136,7 @@ function hangman() {
 
                 else {
                     //deduct from remaining guesses
-                    chancesLeft.innerText = parseInt(chancesLeft.innerText) - 1;
+                    chancesLeft.innerText = chancesLeft.innerText - 1;
                     //if 0 guesses left, game over, new game prompt
                     if (parseInt(chancesLeft.innerText) === 0) {
                         function gameOver() {

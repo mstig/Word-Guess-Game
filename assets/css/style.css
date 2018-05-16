@@ -1,4 +1,68 @@
+@import url(http://fonts.googleapis.com/css?family=Concert+One);
+
 #currentWord {
     /* widens letter spacing of answer to more easily see letter count */
     letter-spacing: 0.6em
 }
+
+#game-box {
+    clear:both;
+    height: 500px;   
+}
+
+
+
+h1 {
+  animation:glow 10s ease-in-out infinite;
+  clear:both;  
+}
+
+
+
+* { box-sizing:border-box; }
+
+body {
+  background: #999;
+  overflow:hidden;
+  text-align:center;
+}
+
+figure {   
+  transform:rotate3d(1,1,0,25deg);
+  transform-origin:center center;
+  transform-style:preserve-3d;
+  height: 350px;
+}
+
+h1 {
+  display:block;
+  width:100%;
+  padding:20px;
+  line-height:1.5;
+  font:800 7em 'Concert One', sans-serif;
+  text-transform:uppercase;
+  position:absolute;
+  color:#0a0a0a;
+
+  -webkit-margin-before: 0.33em;
+    -webkit-margin-after: 0.33em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+@keyframes glow {
+  0%,100%{ text-shadow:0 0 30px red; }
+  25%{ text-shadow:0 0 30px orange; }
+  50%{ text-shadow:0 0 30px forestgreen; }
+  75%{ text-shadow:0 0 30px cyan; }
+}
+
+h1:nth-child(2){ transform:translateZ(5px); }
+h1:nth-child(3){ transform:translateZ(10px);}
+h1:nth-child(4){ transform:translateZ(15px); }
+h1:nth-child(5){ transform:translateZ(20px); }
+h1:nth-child(6){ transform:translateZ(25px); }
+h1:nth-child(7){ transform:translateZ(30px); }
+h1:nth-child(8){ transform:translateZ(35px); }
+h1:nth-child(9){ transform:translateZ(40px); }
+h1:nth-child(10){ transform:translateZ(45px); }
