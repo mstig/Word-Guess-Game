@@ -36,7 +36,7 @@ function hangman() {
     //after converted to array of blanks, updates content on page by passing in array
     //uses .join to print the array with no comma separators
     function answerUpdate(arr) {
-        answerStart.innerText = arr.join("");
+        answerStart.textContent = arr.join("");
     }
 
     //pushes answer into an array to find index of letters, and an array of blanks to show on page
@@ -60,7 +60,7 @@ function hangman() {
     //new games held the same guessed letter bank if not reset upon initialization
     recentGuess.innerText = "";
     alreadyGuessedBank.innerText = "";
-    chancesLeft.innerText = "10";
+    chancesLeft.innerText = "5";
 
 
     //searches entire answer for instances of guessed letter, pushes indexes into an array
@@ -73,9 +73,8 @@ function hangman() {
         }
         return indexes;
     }
-    //will pass (answer, userGuess) into this after letter is selected and letter is included
+    //will pass index values from prior function into this after letter is correctly guessed
     var indexes = [];
-
 
     //is there a comparator for basic alphabet letters that would make this array unnecessary?    
     var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -91,8 +90,6 @@ function hangman() {
 
     //detects keypress for input
     document.onkeyup = function (event) {
-
-
         //sets keypress as variable and makes lower case for array comparison
         userGuess = event.key;
         userGuess = userGuess.toLowerCase();
@@ -110,8 +107,8 @@ function hangman() {
             if (!alreadyGuessedCheck) {
                 //pushes to already guessed array, shows most recent guess, and adds letter to word bank display at bottom
                 guessPush(userGuess);
-                recentGuess.innerText = userGuess;
-                alreadyGuessedBank.innerText = alreadyGuessedBank.innerText + " " + userGuess;
+                recentGuess.textContent = userGuess;
+                alreadyGuessedBank.textContent = alreadyGuessedBank.innerText + " " + userGuess;
 
                 if (answerCheck) {
                     //checks for all instances of correct letter guess, pushes into an array
@@ -119,32 +116,39 @@ function hangman() {
                     //using stored indexes array, replaces blanks in array with the letter
                     for (i = 0; i < indexes.length; i++) {
                         answerShow[indexes[i]] = userGuess;
+                        answerUpdate(answerShow);
                     }
-                    //pushes updated array to show on screen
-                    answerUpdate(answerShow);
+                    //check if word is fully solved by checking remaining blanks,
+                    if (!answerShow.includes("_")) {
+                        //if fully solved, add win counter, alert, restart game
+                        wins.textContent = parseInt(wins.textContent) + 1;
+                        function victory() {
+                            var newGame = confirm("You win!  Let's play again!");
+                            if (newGame) {
+                                hangman();
+                            }
+                        }
+                        //wait 200ms, page was not updating with completed answer before showing alert
+                        setTimeout(victory, 200);
 
+                    }
                 }
-
-
 
                 else {
                     //deduct from remaining guesses
                     chancesLeft.innerText = parseInt(chancesLeft.innerText) - 1;
-                    //if 0 guess left, game over, starts new game
+                    //if 0 guesses left, game over, new game prompt
                     if (parseInt(chancesLeft.innerText) === 0) {
-                        alert("Game over!  Let's play again!");
-                        hangman();
+                        function gameOver() {
+                            var newGame = confirm("Game over!  Let's play again!");
+                            if (newGame) {
+                                hangman();
+                            }
+                        }
+                        //wait 200ms, page was not updating with completed answer before showing alert
+                        setTimeout(gameOver, 200);
                     }
                 }
-                //check if word is fully solved by checking remaining blanks,
-                if (!answerShow.includes("_")) {
-                    //if fully solved, add win counter, alert, restart game
-                    answerUpdate(answerShow);
-                    wins.textContent = parseInt(wins.textContent) + 1;
-                    alert("You win!  Let's play again!");
-                    hangman();
-                }
-
             }
         }
     }
