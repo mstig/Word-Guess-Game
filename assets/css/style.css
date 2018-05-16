@@ -1,14 +1,41 @@
-@import url(http://fonts.googleapis.com/css?family=Concert+One);
+@import url('https://fonts.googleapis.com/css?family=Concert+One|Poppins');
+
+* { box-sizing:border-box; }
 
 #currentWord {
     /* widens letter spacing of answer to more easily see letter count */
-    letter-spacing: 0.6em
+    letter-spacing: 0.4em
+}
+
+#winner {
+  display: none;
+  font-size: 150%;
+  margin-bottom: 10px;
+}
+#answerImg {
+  width: auto;
+  margin: auto;
+  display: none;
+  margin-bottom: 10px;
+
+}
+
+#text-box, #winner{
+  color: rgb(63, 63, 63);
+  font-family: 'Poppins', sans-serif;
 }
 
 #game-box {
     clear:both;
-    height: 500px;   
+    padding: 20px;
+    height: 350px;   
+    width: 50%;
+    margin: auto;
+    background-color: rgba(191, 191, 191, 0.5);
+    border: 3px solid #666;
 }
+
+
 
 
 
@@ -17,13 +44,13 @@ h1 {
   clear:both;  
 }
 
+#start-banner {
+  font-size: 125%;
+}
 
-
-* { box-sizing:border-box; }
 
 body {
-  background: #999;
-  overflow:hidden;
+  background-image: url("../images/what-the-hex.png");
   text-align:center;
 }
 
@@ -31,7 +58,7 @@ figure {
   transform:rotate3d(1,1,0,25deg);
   transform-origin:center center;
   transform-style:preserve-3d;
-  height: 350px;
+  height: 300px;
 }
 
 h1 {
@@ -44,10 +71,8 @@ h1 {
   position:absolute;
   color:#0a0a0a;
 
-  -webkit-margin-before: 0.33em;
-    -webkit-margin-after: 0.33em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+ 
+    margin: 0px;
 }
 
 @keyframes glow {
@@ -57,12 +82,12 @@ h1 {
   75%{ text-shadow:0 0 30px cyan; }
 }
 
-h1:nth-child(2){ transform:translateZ(5px); }
-h1:nth-child(3){ transform:translateZ(10px);}
-h1:nth-child(4){ transform:translateZ(15px); }
-h1:nth-child(5){ transform:translateZ(20px); }
-h1:nth-child(6){ transform:translateZ(25px); }
-h1:nth-child(7){ transform:translateZ(30px); }
-h1:nth-child(8){ transform:translateZ(35px); }
-h1:nth-child(9){ transform:translateZ(40px); }
-h1:nth-child(10){ transform:translateZ(45px); }
+h1:nth-child(2){ transform:translateZ(8px); }
+h1:nth-child(3){ transform:translateZ(16px);}
+h1:nth-child(4){ transform:translateZ(24px); }
+h1:nth-child(5){ transform:translateZ(32px); }
+h1:nth-child(6){ transform:translateZ(40px); }
+h1:nth-child(7){ transform:translateZ(48px); }
+h1:nth-child(8){ transform:translateZ(56px); }
+h1:nth-child(9){ transform:translateZ(64px); }
+h1:nth-child(10){ transform:translateZ(72px); }

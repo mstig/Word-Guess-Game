@@ -2,7 +2,7 @@
 function hangman() {
 
     //initializing variables and arrays for answer bank and selected answer, alphabet to verify inputs and keep track of letter selection
-    var answerBank = ["led zeppelin", "jimi hendrix", "bruce springsteen", "journey", "the who", "zz top", "the allman brothers", "lynyrd skynyrd", "the doors", "fleetwood mac"];
+    var answerBank = ["LED ZEPPELIN", "JIMI HENDRIX", "BRUCE SPRINGSTEEN", "JOURNEY", "THE WHO", "ZZ TOP", "THE ALLMAN BROTHERS", "LYNYRD SKYNYRD", "THE DOORS", "FLEETWOOD MAC", "AC DC", "QUEEN", "TOM PETTY"];
     //picks random item from answerBank
     var answer = answerBank[Math.floor(Math.random() * answerBank.length)];
     console.log(answer);
@@ -18,7 +18,6 @@ function hangman() {
         for (i = 0; i < randomAnswer.length; i++) {
             answerArray.push(randomAnswer[i]);
         }
-        console.log(answerArray);
     }
     function blankPush(randomAnswer) {
         //converts actual letters to blank spaces to hide answer
@@ -60,7 +59,7 @@ function hangman() {
     //new games held the same guessed letter bank if not reset upon initialization
     recentGuess.innerText = "";
     alreadyGuessedBank.innerText = "";
-    chancesLeft.innerText = "5";
+    chancesLeft.innerText = "8";
 
 
     //searches entire answer for instances of guessed letter, pushes indexes into an array
@@ -77,7 +76,7 @@ function hangman() {
     var indexes = [];
 
     //is there a comparator for basic alphabet letters that would make this array unnecessary?    
-    var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
     //declaring userGuess outside of key press funtion for scope
     var userGuess = "";
@@ -88,11 +87,36 @@ function hangman() {
         alreadyGuessed.push(x);
     }
 
+
+    //for win/loss conditions, unhides image panel and displays picture of answer
+    //changes img source to corresponding picture in images folder and adjusts style
+    var answerPic = document.getElementById("answerImg");
+    var winBox = document.getElementById("winner");
+
+     //method to hide previous picture/win banner when game restarts
+    //immediately called when function starts
+
+    function hidePicture() {
+        answerPic.style.display = "none";
+        winBox.style.display = "none";
+    }
+
+    hidePicture();
+
+    function showPicture() {
+        answerPic.src = ("assets/images/" + answer + ".png");
+        answerPic.style.display = "block";
+        winBox.style.display = "block";
+    }
+
+   
+
+
     //detects keypress for input
     document.onkeyup = function (event) {
-        //sets keypress as variable and makes lower case for array comparison
+        //sets keypress as variable and makes upper case for array comparison
         userGuess = event.key;
-        userGuess = userGuess.toLowerCase();
+        userGuess = userGuess.toUpperCase();
 
         //method for checking guess against alphabet, already guessed pool, and final answer
         var alphaCheck = alphabet.includes(userGuess);
@@ -128,6 +152,8 @@ function hangman() {
                                 hangman();
                             }
                         }
+
+                        showPicture();
                         //wait 200ms, page was not updating with completed answer before showing alert
                         setTimeout(victory, 200);
 
@@ -144,7 +170,7 @@ function hangman() {
                             if (newGame) {
                                 hangman();
                             }
-                        }
+                        }                     
                         //wait 200ms, page was not updating with completed answer before showing alert
                         setTimeout(gameOver, 200);
                     }
