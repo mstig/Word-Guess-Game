@@ -4,11 +4,8 @@
 
 
 body {
-  background-color: rgba(53, 148, 53, 0.5);
-overflow: hidden;
-  background-image: url("../images/what-the-hex.png");
+ background-image: url("../images/what-the-hex.png");
   text-align:center;
-  background-color: rgba(53, 148, 53, 0.5);
 }
 
 

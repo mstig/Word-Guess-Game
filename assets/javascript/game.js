@@ -155,7 +155,7 @@ function hangman() {
 
                         showPicture();
                         //wait 200ms, page was not updating with completed answer before showing alert
-                        setTimeout(victory, 200);
+                        setTimeout(victory, 300);
 
                     }
                 }
@@ -172,7 +172,7 @@ function hangman() {
                             }
                         }                     
                         //wait 200ms, page was not updating with completed answer before showing alert
-                        setTimeout(gameOver, 200);
+                        setTimeout(gameOver, 300);
                     }
                 }
             }
