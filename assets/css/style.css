@@ -2,6 +2,16 @@
 
 * { box-sizing:border-box; }
 
+
+body {
+  background-color: rgba(53, 148, 53, 0.5);
+overflow: hidden;
+  background-image: url("../images/what-the-hex.png");
+  text-align:center;
+  background-color: rgba(53, 148, 53, 0.5);
+}
+
+
 #currentWord {
     /* widens letter spacing of answer to more easily see letter count */
     letter-spacing: 0.4em
@@ -17,6 +27,7 @@
   margin: auto;
   display: none;
   margin-bottom: 10px;
+  border: 2px solid #666;
 
 }
 
@@ -48,11 +59,6 @@ h1 {
   font-size: 125%;
 }
 
-
-body {
-  background-image: url("../images/what-the-hex.png");
-  text-align:center;
-}
 
 figure {   
   transform:rotate3d(1,1,0,25deg);
