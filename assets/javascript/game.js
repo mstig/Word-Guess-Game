@@ -8,25 +8,41 @@ function hangman() {
     console.log(answer);
 
     //gets current word element to initialize answer, function to push answer as blanks
+    //puts answer in an array to search index of each letter later on
+    //answerShow will be used to provide blanks while guessing
     var answerStart = document.getElementById("currentWord");
-    var answerShow = "";
+    var answerArray = [];
+    var answerShow = [];
+
+    function arrayPush(randomAnswer) {
+        for (i = 0; i < randomAnswer.length; i++) {
+            answerArray.push(randomAnswer[i]);
+        }
+        console.log(answerArray);
+    }
     function blankPush(randomAnswer) {
-        //shows a blank space for every letter in answer, gap for spaces
+        //converts actual letters to blank spaces to hide answer
+        //shows a blank space for every letter in answer, gap for space                           
         for (i = 0; i < randomAnswer.length; i++) {
             if (randomAnswer[i] === " ") {
-                answerShow = answerShow + " ";
+                answerShow.push(" ");
             }
             else {
-                answerShow = answerShow + "_";
+                answerShow.push("_");
             }
-
         }
-        //after for loop ends, updates guess area of html page with number of blanks
-        answerStart.innerText = answerShow;
     }
 
-    //calls blank output function with randomized answer selection from answerBank
+    //after converted to array of blanks, updates content on page by passing in array
+    //uses .join to print the array with no comma separators
+    function answerUpdate(arr) {
+        answerStart.innerText = arr.join("");
+    }
+
+    //pushes answer into an array to find index of letters, and an array of blanks to show on page
+    arrayPush(answer);
     blankPush(answer);
+    answerUpdate(answerShow);
 
 
 
@@ -35,7 +51,7 @@ function hangman() {
     // ex var currentWord = documne.getElementById("currentWord")
     // is it better to use different names for html / js sections or have similar names for paired items?
     var answerDisplay = document.getElementById("currentWord");
-    var wins = document.getElementById("winCounter");
+    var wins = document.getElementById("winCount");
     var recentGuess = document.getElementById("lastLetter");
     var alreadyGuessedBank = document.getElementById("lettersGuessed");
     var chancesLeft = document.getElementById("guessesLeft");
@@ -46,6 +62,19 @@ function hangman() {
     alreadyGuessedBank.innerText = "";
     chancesLeft.innerText = "10";
 
+
+    //searches entire answer for instances of guessed letter, pushes indexes into an array
+    //needed for answers with duplicate letters, uses array to overlay letters onto blanks
+    function getAllIndexes(array, letter) {
+        var indexes = [];
+        var i = -1;
+        while ((i = array.indexOf(letter, i + 1)) != -1) {
+            indexes.push(i);
+        }
+        return indexes;
+    }
+    //will pass (answer, userGuess) into this after letter is selected and letter is included
+    var indexes = [];
 
 
     //is there a comparator for basic alphabet letters that would make this array unnecessary?    
@@ -85,13 +114,18 @@ function hangman() {
                 alreadyGuessedBank.innerText = alreadyGuessedBank.innerText + " " + userGuess;
 
                 if (answerCheck) {
-                    //show letter in answer
-                    //check if word is fully solved after updating answer
-                    //if win, increment counter and start over
-                    wins.innerText = parseInt(wins.innerText) + 1;
-                    alert("You win!  Let's play again!");
-                    hangman();
+                    //checks for all instances of correct letter guess, pushes into an array
+                    indexes = getAllIndexes(answer, userGuess);
+                    //using stored indexes array, replaces blanks in array with the letter
+                    for (i = 0; i < indexes.length; i++) {
+                        answerShow[indexes[i]] = userGuess;
+                    }
+                    //pushes updated array to show on screen
+                    answerUpdate(answerShow);
+
                 }
+
+
 
                 else {
                     //deduct from remaining guesses
@@ -102,6 +136,15 @@ function hangman() {
                         hangman();
                     }
                 }
+                //check if word is fully solved by checking remaining blanks,
+                if (!answerShow.includes("_")) {
+                    //if fully solved, add win counter, alert, restart game
+                    answerUpdate(answerShow);
+                    wins.textContent = parseInt(wins.textContent) + 1;
+                    alert("You win!  Let's play again!");
+                    hangman();
+                }
+
             }
         }
     }
