@@ -71,6 +71,7 @@ h1 {
   position:absolute;
   color:#0a0a0a; 
   margin: 0px;
+  margin-top: 10px;
 }
 
 @keyframes glowText {
