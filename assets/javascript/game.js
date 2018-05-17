@@ -5,11 +5,10 @@ function hangman() {
     var answerBank = ["LED ZEPPELIN", "JIMI HENDRIX", "BRUCE SPRINGSTEEN", "JOURNEY", "THE WHO", "ZZ TOP", "THE ALLMAN BROTHERS", "LYNYRD SKYNYRD", "THE DOORS", "FLEETWOOD MAC", "AC DC", "QUEEN", "TOM PETTY"];
     //picks random item from answerBank
     var answer = answerBank[Math.floor(Math.random() * answerBank.length)];
-    console.log(answer);
 
     //gets current word element to initialize answer, function to push answer as blanks
-    //puts answer in an array to search index of each letter later on
-    //answerShow will be used to provide blanks while guessing
+    //puts actual answer in an array to search index of each letter later on
+    //answerShow will be used to provide blanks while guessing letters
     var answerStart = document.getElementById("currentWord");
     var answerArray = [];
     var answerShow = [];
@@ -45,11 +44,10 @@ function hangman() {
 
 
 
-    //pulling elements from index by ID in order to update letters, wins, guesses
+    //pulling elements from index.html by ID in order to update letters, wins, guesses
     //can I use the same var name in this as I do in the html portion?
     // ex var currentWord = documne.getElementById("currentWord")
     // is it better to use different names for html / js sections or have similar names for paired items?
-    var answerDisplay = document.getElementById("currentWord");
     var wins = document.getElementById("winCount");
     var recentGuess = document.getElementById("lastLetter");
     var alreadyGuessedBank = document.getElementById("lettersGuessed");
@@ -63,7 +61,7 @@ function hangman() {
 
 
     //searches entire answer for instances of guessed letter, pushes indexes into an array
-    //needed for answers with duplicate letters, uses array to overlay letters onto blanks
+    //needed for answers with duplicate letters, uses array indexes to overlay letters onto blanks
     function getAllIndexes(array, letter) {
         var indexes = [];
         var i = -1;
@@ -81,12 +79,8 @@ function hangman() {
     //declaring userGuess outside of key press funtion for scope
     var userGuess = "";
 
-    //uses this array to store player's guesses, plus push method
+    //uses this array to store player's past guesses
     var alreadyGuessed = [];
-    function guessPush(x) {
-        alreadyGuessed.push(x);
-    }
-
 
     //for win/loss conditions, unhides image panel and displays picture of answer
     //changes img source to corresponding picture in images folder and adjusts style
@@ -94,7 +88,7 @@ function hangman() {
     var winBox = document.getElementById("winner");
 
      //method to hide previous picture/win banner when game restarts
-    //immediately called when function starts
+     //immediately called when function starts
 
     function hidePicture() {
         answerPic.style.display = "none";
@@ -103,6 +97,8 @@ function hangman() {
 
     hidePicture();
 
+    //function to unhide picture / win text, called after win condition check
+    //changes source based on random answer chosen from array
     function showPicture() {
         answerPic.src = ("assets/images/" + answer + ".png");
         answerPic.style.display = "block";
@@ -110,6 +106,10 @@ function hangman() {
     }
 
    
+    //*****************************************/
+    //Above code is performed only once at start of hangman() function
+    //Below is main code section that executes every time user guesses a letter
+    //*****************************************/
 
 
     //detects keypress for input
@@ -130,7 +130,7 @@ function hangman() {
             //false check for duplicate answer to proceed, if letter has already been guessed, does nothing     
             if (!alreadyGuessedCheck) {
                 //pushes to already guessed array, shows most recent guess, and adds letter to word bank display at bottom
-                guessPush(userGuess);
+                alreadyGuessed.push(userGuess);
                 recentGuess.textContent = userGuess;
                 alreadyGuessedBank.textContent = alreadyGuessedBank.innerText + " " + userGuess;
 
@@ -152,11 +152,9 @@ function hangman() {
                                 hangman();
                             }
                         }
-
                         showPicture();
                         //wait 200ms, page was not updating with completed answer before showing alert
                         setTimeout(victory, 300);
-
                     }
                 }
 

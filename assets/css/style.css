@@ -4,58 +4,53 @@
 
 
 body {
- background-image: url("../images/what-the-hex.png");
+  background-image: url("../images/bgpattern.png"); 
   text-align:center;
 }
 
 
 #currentWord {
-    /* widens letter spacing of answer to more easily see letter count */
+    /* widens letter spacing of answer to more easily see letter count, blanks dont run together */
     letter-spacing: 0.4em
 }
 
 #winner {
   display: none;
+  font-family: 'Poppins', sans-serif;
   font-size: 150%;
   margin-bottom: 10px;
+  color: rgb(190, 190, 190);
 }
 #answerImg {
   width: auto;
   margin: auto;
   display: none;
   margin-bottom: 10px;
-  border: 2px solid #666;
-
+  border: 2px solid #666;  
 }
 
-#text-box, #winner{
-  color: rgb(63, 63, 63);
+#text-box{
+  color: rgb(37, 37, 37);
   font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
 }
 
 #game-box {
+    animation: glowBox 10s ease-in-out infinite;
     clear:both;
     padding: 20px;
-    height: 350px;   
-    width: 50%;
+    height: 320px;   
+    width: 35%;
     margin: auto;
     background-color: rgba(191, 191, 191, 0.5);
     border: 3px solid #666;
-}
-
-
-
-
-
-h1 {
-  animation:glow 10s ease-in-out infinite;
-  clear:both;  
+    border-radius: 20px;
+    margin-top: 20px;
 }
 
 #start-banner {
   font-size: 125%;
 }
-
 
 figure {   
   transform:rotate3d(1,1,0,25deg);
@@ -65,6 +60,8 @@ figure {
 }
 
 h1 {
+  animation: glowText 10s ease-in-out infinite;
+  clear:both;  
   display:block;
   width:100%;
   padding:20px;
@@ -72,17 +69,22 @@ h1 {
   font:800 7em 'Concert One', sans-serif;
   text-transform:uppercase;
   position:absolute;
-  color:#0a0a0a;
-
- 
-    margin: 0px;
+  color:#0a0a0a; 
+  margin: 0px;
 }
 
-@keyframes glow {
+@keyframes glowText {
   0%,100%{ text-shadow:0 0 30px red; }
   25%{ text-shadow:0 0 30px orange; }
   50%{ text-shadow:0 0 30px forestgreen; }
   75%{ text-shadow:0 0 30px cyan; }
+}
+
+@keyframes glowBox {
+  0%, 100% { box-shadow: 0 0 30px red; }
+  25% { box-shadow: 0 0 30px orange; }
+  50% { box-shadow: 0 0 30px forestgreen; }
+  75% { box-shadow: 0 0 30px cyan; }
 }
 
 h1:nth-child(2){ transform:translateZ(8px); }
